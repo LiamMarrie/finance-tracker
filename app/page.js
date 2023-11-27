@@ -28,7 +28,7 @@ export default function Home() {
 
   return (
     <div>
-      <NavBar isVisible={true} />  {/* Updated prop name to match NavBar component */}
+      <NavBar isVisible={true} />  
       <main style={{
         backgroundImage: `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" fill="none" viewBox="0 0 1440 960"%3E%3Ccircle cx="-50.5" cy="75.5" r="416.5" stroke="%232D3949" stroke-width="144"%3E%3C/circle%3E%3Ccircle cx="1388.5" cy="840.5" r="416.5" stroke="%232D3949" stroke-width="144"%3E%3C/circle%3E%3C/svg%3E')`,
         backgroundColor: '#313E51',
@@ -50,7 +50,7 @@ export default function Home() {
             fontWeight: 'bold',
             color: 'white',
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'left',
             alignContent: 'center',
             marginLeft: '40px',
             marginTop: '25px'

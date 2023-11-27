@@ -14,13 +14,14 @@ import { FaMoneyBillTrendUp } from "react-icons/fa6";
 
 function NavBar({ isVisible }){
     const {user, loading, logout} = useContext(authContext); 
+    const [isNavOpen, setIsNavOpen] = useState(false);
 
-    const toggleNav = () =>{
-        setIsVisible(!isVisible);
+    const toggleNav = () => {
+        setIsNavOpen(!isNavOpen);
     }
 
     if (!isVisible) {
-        return false;
+        return null;
     }
 
     return (
@@ -38,7 +39,7 @@ function NavBar({ isVisible }){
             top: '0', 
             left: '0', 
             height: '100vh',
-            zIndex: '100'  // Ensure this is high enough to be on top of other elements
+            zIndex: '100'
         }}
         >
             {/* USER INFORMATION */}
@@ -108,7 +109,7 @@ function NavBar({ isVisible }){
             )}
 
             {/* NAV OPTIONS */}
-            {isVisible && user && !loading && (
+            {isNavOpen && user && !loading && (
                 <div style={{width: '100%'}}> 
                     <nav
                         style={{

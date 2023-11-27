@@ -51,7 +51,7 @@ function SignUp() {
               color: '#ABC1E1',
             }}
           >
-            <strong style={{}}>Clarity </strong> is a valuable tool that can
+            <strong style={{color: ''}}>Clarity </strong> is a valuable tool that can
             help you achieve financial well-being. It provides insights, tips,
             and guidance that enable you to make informed decisions, grow your
             wealth, and secure your financial future with confidence.
