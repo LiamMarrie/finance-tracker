@@ -1,50 +1,35 @@
-'use strict';
-'use client';
+// UserSpendingData.js
 import React, { useState } from 'react';
 
-function UserSpendingData() {
+function UserSpendingData({ onAddSpending }) {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
     const [category, setCategory] = useState('');
     const [error, setError] = useState('');
 
-    const handleNameChange = (event) => {
-        setName(event.target.value);
-    }
-
-    const handlePriceChange = (event) => {
-        setPrice(event.target.value);
-    }
-
-    const handleDateChange = (event) => {
-        setDate(event.target.value);
-    }
-
-    const handleCategoryChange = (event) => {
-        setCategory(event.target.value);
-    }
-
-
+    const handleNameChange = (event) => setName(event.target.value);
+    const handlePriceChange = (event) => setPrice(event.target.value);
+    const handleDateChange = (event) => setDate(event.target.value);
+    const handleCategoryChange = (event) => setCategory(event.target.value);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        if(!name || !price || !category || !date) {
-            const setError = alert(`Please fill out all fields.`);
+        if (!name || !price || !category || !date) {
+            setError('Please fill out all fields.');
             return;
         }
 
-        const inputData = {
-            name: name,
-            price: price,
-            date: date,
-            category: category
-        }
-        alert(JSON.stringify(inputData));
+        const inputData = { name, price, date, category };
+        onAddSpending(inputData); // Call the function passed as a prop
+
+        // Clear the form fields and error message
+        setName('');
+        setPrice('');
+        setDate('');
+        setCategory('');
         setError('');
-    }
-    
+    };
 
     return (
         /* USER SPENDING DATA */
@@ -84,7 +69,7 @@ function UserSpendingData() {
                     border: '2px solid black',
                     boxShadow: '8px 8px 0 0 black',
                 }}>
-                    <form className='spending-inputs' style={{ width: '80%' }}>
+                    <form className='spending-inputs' onSubmit={handleSubmit} style={{ width: '80%' }}>
                         <div className='form-group' style={{
                             display: 'flex',
                             flexDirection: 'row',
@@ -124,7 +109,7 @@ function UserSpendingData() {
                                     id='price'
                                     name='price'
                                     value={price}
-                                    placeholder='5.00'
+                                    placeholder='$5.00'
                                     style={{
                                         borderRadius: '5px',
                                         padding: '0.5rem 0.5rem 0.5rem 20px',
@@ -139,6 +124,7 @@ function UserSpendingData() {
                                     left: '8px',
                                     transform: 'translateY(-50%)',
                                     fontSize: '18px',
+
                                     pointerEvents: 'none',
                                     color: 'black',
                                 }}>
@@ -227,7 +213,17 @@ function UserSpendingData() {
                     </form>
                 </div>
             </div>
+            {error && (
+                <div className='error-message' style={{
+                    color: 'red',
+                    textAlign: 'center',
+                    marginTop: '1rem',
+                }}>
+                    {error}
+                </div>
+            )}
         </div>
     );
 }
+
 export default UserSpendingData;

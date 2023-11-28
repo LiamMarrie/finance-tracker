@@ -211,7 +211,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'home' ? '#A729F5' : 'white', // Highlight the selected option
+                    color: selectedOption === 'home' ? '#FEB737' : 'white', // Highlight the selected option
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -232,7 +232,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'transactions' ? '#A729F5' : 'white', // Highlight the selected option
+                    color: selectedOption === 'transactions' ? '#FEB737' : 'white', // Highlight the selected option
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -253,7 +253,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'income' ? '#A729F5' : 'white', // Highlight the selected option
+                    color: selectedOption === 'income' ? '#FEB737' : 'white', // Highlight the selected option
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -274,7 +274,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'graphs' ? '#A729F5' : 'white', // Highlight the selected option
+                    color: selectedOption === 'graphs' ? '#FEB737' : 'white', // Highlight the selected option
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -294,7 +294,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'advice' ? '#A729F5' : 'white', // Highlight the selected option
+                    color: selectedOption === 'advice' ? '#FEB737' : 'white', // Highlight the selected option
                     }}
                     onClick={(e) => {
                         e.preventDefault();
