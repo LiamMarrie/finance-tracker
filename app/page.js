@@ -10,8 +10,8 @@ import Transactions from '@/components/transactions';
 
 export default function Home() {
   const { user } = useContext(authContext);
-
   const [selectedOption, setSelectedOption] = useState('home');
+  const [spendingItems, setSpendingItems] = useState([]);
 
   if (!user) {
     return <SignUp />;
@@ -19,6 +19,10 @@ export default function Home() {
 
   const handleSelectOption = (option) => {
     setSelectedOption(option);
+  };
+
+  const addSpendingItem = (item) => {
+    setSpendingItems([...spendingItems, item]);
   };
 
   const getGreeting = () => {
@@ -35,7 +39,7 @@ export default function Home() {
         selectedOption={selectedOption}
         onSelectOption={handleSelectOption}
       />
-      <main style={{
+      <main style={{ 
         backgroundImage: `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" fill="none" viewBox="0 0 1440 960"%3E%3Ccircle cx="-50.5" cy="75.5" r="416.5" stroke="%232D3949" stroke-width="144"%3E%3C/circle%3E%3Ccircle cx="1388.5" cy="840.5" r="416.5" stroke="%232D3949" stroke-width="144"%3E%3C/circle%3E%3C/svg%3E')`,
         backgroundColor: '#313E51',
         backgroundSize: 'cover',
@@ -50,7 +54,7 @@ export default function Home() {
         zIndex: '1'
       }}>
         <div>
-          <h1 style={{
+          <h1 style={{ 
             fontSize: '20px',
             fontWeight: 'bold',
             color: 'white',
@@ -59,13 +63,12 @@ export default function Home() {
             alignContent: 'center',
             marginLeft: '40px',
             marginTop: '25px'
-          }}>
+           }}>
             {getGreeting()}, {user?.displayName}
           </h1>
         </div>
-        {/* Render the content based on the selected option */}
-        {selectedOption === 'home' && <UserSpendingData />}
-        {selectedOption === 'transactions' && <Transactions />}
+        {selectedOption === 'home' && <UserSpendingData onAddSpending={addSpendingItem} />}
+        {selectedOption === 'transactions' && <Transactions spendingItems={spendingItems} />}
       </main>
     </div>
   );

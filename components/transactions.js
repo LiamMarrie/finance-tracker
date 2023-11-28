@@ -1,18 +1,16 @@
-// Transactions.js
-import React, { useState } from 'react';
-import Item from './item'; // Import the Item component
+// transactions.js
+import React from 'react';
+import Item from './item';
 
-function Transactions() {
-    const [spendingItems, setSpendingItems] = useState([]);
-
-    const addSpendingItem = (item) => {
-        setSpendingItems([...spendingItems, item]);
-    };
-
+function Transactions({ spendingItems }) {
     return (
         <div style={{ marginLeft: '200px' }}>
-            <h2>Transactions</h2>
-            {/* Render each spending item using the Item component */}
+            <h2 style={{
+                fontSize: '20px',
+                fontWeight: 'bold',
+                color: 'white',
+                paddingTop: '50px'
+            }}>Transactions</h2>
             <ul>
                 {spendingItems.map((item, index) => (
                     <Item

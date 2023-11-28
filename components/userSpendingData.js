@@ -109,7 +109,7 @@ function UserSpendingData({ onAddSpending }) {
                                     id='price'
                                     name='price'
                                     value={price}
-                                    placeholder='$5.00'
+                                    placeholder='5.00'
                                     style={{
                                         borderRadius: '5px',
                                         padding: '0.5rem 0.5rem 0.5rem 20px',
@@ -168,6 +168,7 @@ function UserSpendingData({ onAddSpending }) {
                                 width: '40%',
                                 color: 'black',
                             }} onChange={handleCategoryChange}>
+                                <option value='default'>-options-</option>
                                 <option value='groceries'>Groceries</option>
                                 <option value='food'>Food</option>
                                 <option value='restaurants'>Restaurants</option>
