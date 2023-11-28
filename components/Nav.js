@@ -2,7 +2,12 @@
 'use strict';
 import { useContext} from 'react';
 import { useState } from 'react';
-import { authContext } from '@/lib/store/auth-context'; 
+import { authContext } from '@/lib/store/auth-context';
+import UserSpendingData from '@/components/userSpendingData';
+import Transactions from '@/components/transactions';
+
+
+import { IoHome } from "react-icons/io5"; // Import the IoHome icon once
 
 import { ImStatsDots } from "react-icons/im";
 import { IoIosLogOut } from "react-icons/io";
@@ -10,10 +15,10 @@ import { TbPigMoney } from "react-icons/tb";
 import { FaChartLine } from "react-icons/fa6";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 
-
-function NavBar({ isVisible }){
-    const {user, loading, logout} = useContext(authContext); 
+function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}){
+    const { user, loading, logout } = useContext(authContext);
     const [isNavOpen, setIsNavOpen] = useState(false);
 
     const toggleNav = () => {
@@ -52,7 +57,7 @@ function NavBar({ isVisible }){
                         alignItems: 'flex-start',
                         padding: '1rem',
                         cursor: 'pointer',
-                        borderBottom: isVisible ? 'none' : '2px solid black',
+                        borderBottom: isVisible ? 'none' : '2px solid white',
                     }}
                 >
                     {/* img */}
@@ -127,7 +132,7 @@ function NavBar({ isVisible }){
                         <button
                             onClick={logout}
                             style={{
-                                backgroundColor: '#13e16c',
+                                backgroundColor: '#EE5454',
                                 border: '2px solid black',
                                 width: '100%',
                                 display: 'flex',
@@ -141,13 +146,13 @@ function NavBar({ isVisible }){
                             }} 
 
                             onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = '#26D782';
+                            e.target.style.backgroundColor = '#f22323';
                             e.target.style.boxShadow= '8px 8px 0 0 black',
                             e.target.style.transform = 'scale(1.05)';
                             }}
 
                             onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = '#13e16c'; 
+                            e.target.style.backgroundColor = '#EE5454'; 
                             e.target.style.boxShadow= 'none',
                             e.target.style.transform = 'scale(1)'; 
                             }}
@@ -193,84 +198,116 @@ function NavBar({ isVisible }){
             {/* PAGE LINKS */}
             <div style={{
                 width: '100%'
-            
             }}>
                 <ul style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    listStyle: 'none',
-                    padding: '1rem',
-                    margin: '0',
-                    width: '100%',
-                    height: '100%',
-                    overflow: 'hidden',
+                // ...
                 }}>
-                    <li style={{
-                        marginBottom: '1rem',
-                        color: 'white',
-                        fontSize: '1.5rem', 
-                        borderBottom: '2px solid black',
+                <li style={{
+                    marginBottom: '1rem',
+                    color: 'white',
+                    fontSize: '1.5rem',
+                    borderBottom: '2px solid white',
+                }}>
+                    <a href='/' style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: selectedOption === 'home' ? '#A729F5' : 'white', // Highlight the selected option
+                    }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onSelectOption('home'); // Pass 'home' as the selected option
                     }}
                     >
-                        <a href='/' style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                        }}>
-                        <TbPigMoney style={{
-                            marginRight: '10px'
-                        }}/> Transactions
-                        </a>
-                    </li>
-                    <li style={{
-                        marginBottom: '1rem',
-                        color: 'white',
-                        fontSize: '1.5rem', 
-                        borderBottom: '2px solid black',
+                    <IoHome style={{
+                        marginRight: '10px'
+                    }} /> Home
+                    </a>
+                </li>
+                <li style={{
+                    marginBottom: '1rem',
+                    color: 'white',
+                    fontSize: '1.5rem',
+                    borderBottom: '2px solid white',
+                }}>
+                    <a href='/' style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: selectedOption === 'transactions' ? '#A729F5' : 'white', // Highlight the selected option
+                    }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onSelectOption('transactions'); // Pass 'transactions' as the selected option
                     }}
                     >
-                        <a href='/' style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                        }}>
-                        <FaMoneyBillTrendUp style={{
-                            marginRight: '10px'
-                        }}/> Income
-                        </a>
-                    </li>
-                    <li style={{
-                        marginBottom: '1rem',
-                        color: 'white',
-                        fontSize: '1.5rem', 
-                        borderBottom: '2px solid black'
-                    }}>
-                        <a href='/' style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                        }}>
-                            <FaChartLine style={{
-                            marginRight: '10px'
-                        }}/> Graphs
-                        </a>
-                    </li>
-                    <li style={{
-                        marginBottom: '1rem',
-                        color: 'white',
-                        fontSize: '1.5rem', 
-                    }}>
-                        <a href='/' style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                        }}>
-                            <MdOutlineContactSupport style={{
-                            marginRight: '10px'
-                        }}/> Advice
-                        </a>
-                    </li>
+                    <FaMoneyBillTransfer style={{
+                        marginRight: '10px'
+                    }} /> Transactions
+                    </a>
+                </li>
+                <li style={{
+                    marginBottom: '1rem',
+                    color: 'white',
+                    fontSize: '1.5rem',
+                    borderBottom: '2px solid white',
+                }}>
+                    <a href='/' style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: selectedOption === 'income' ? '#A729F5' : 'white', // Highlight the selected option
+                    }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onSelectOption('income'); // Pass 'income' as the selected option
+                    }}
+                    >
+                    <FaMoneyBillTrendUp style={{
+                        marginRight: '10px'
+                    }} /> Income
+                    </a>
+                </li>
+                <li style={{
+                    marginBottom: '1rem',
+                    color: 'white',
+                    fontSize: '1.5rem',
+                    borderBottom: '2px solid white',
+                }}>
+                    <a href='/' style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: selectedOption === 'graphs' ? '#A729F5' : 'white', // Highlight the selected option
+                    }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onSelectOption('graphs'); // Pass 'graphs' as the selected option
+                    }}
+                    >
+                    <FaChartLine style={{
+                        marginRight: '10px'
+                    }} /> Graphs
+                    </a>
+                </li>
+                <li style={{
+                    marginBottom: '1rem',
+                    color: 'white',
+                    fontSize: '1.5rem',
+                }}>
+                    <a href='/' style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: selectedOption === 'advice' ? '#A729F5' : 'white', // Highlight the selected option
+                    }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onSelectOption('advice'); // Pass 'advice' as the selected option
+                    }}
+                    >
+                    <MdOutlineContactSupport style={{
+                        marginRight: '10px'
+                    }} /> Advice
+                    </a>
+                </li>
                 </ul>
             </div>
-
         </header>
     );    
 }

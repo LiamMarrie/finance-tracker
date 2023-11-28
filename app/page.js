@@ -1,23 +1,25 @@
-'use client';
 'use strict';
+'use client';
 
-import Image from 'next/image'
-import React, { useContext } from 'react';
-import { currencyFormatter } from '@/lib/utils';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import React, { useContext, useState } from 'react';
 import SignUp from '@/components/signup';
 import { authContext } from '@/lib/store/auth-context';
 import NavBar from '@/components/Nav';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import UserSpendingData from '@/components/userSpendingData';
+import Transactions from '@/components/transactions';
 
 export default function Home() {
   const { user } = useContext(authContext);
 
+  const [selectedOption, setSelectedOption] = useState('home');
+
   if (!user) {
     return <SignUp />;
   }
+
+  const handleSelectOption = (option) => {
+    setSelectedOption(option);
+  };
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -27,8 +29,12 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <NavBar isVisible={true} />  
+    <div style={{ userSelect: 'none' }}>
+      <NavBar
+        isVisible={true}
+        selectedOption={selectedOption}
+        onSelectOption={handleSelectOption}
+      />
       <main style={{
         backgroundImage: `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" fill="none" viewBox="0 0 1440 960"%3E%3Ccircle cx="-50.5" cy="75.5" r="416.5" stroke="%232D3949" stroke-width="144"%3E%3C/circle%3E%3Ccircle cx="1388.5" cy="840.5" r="416.5" stroke="%232D3949" stroke-width="144"%3E%3C/circle%3E%3C/svg%3E')`,
         backgroundColor: '#313E51',
@@ -36,15 +42,14 @@ export default function Home() {
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed',
         minHeight: '100vh',
-        width: '100%',  
-        marginLeft: '200px',          
+        width: '100%',
+        marginLeft: '200px',
         position: 'relative',
         overflow: 'hidden',
         position: 'fixed',
         zIndex: '1'
       }}>
-        {/* HOME PAGE CONTENT */}
-        <div> 
+        <div>
           <h1 style={{
             fontSize: '20px',
             fontWeight: 'bold',
@@ -58,18 +63,9 @@ export default function Home() {
             {getGreeting()}, {user?.displayName}
           </h1>
         </div>
-        {/* USER SPENDING DATA */}
-        <div>
-          <h2 style={{
-            fontSize: '20px',
-            fontWeight: 'bold',
-            display: 'flex',
-            justifyContent: 'center',
-            alignContent: 'center',
-            margin: '0 auto'
-          }}>{currencyFormatter()}</h2>
-          
-        </div>
+        {/* Render the content based on the selected option */}
+        {selectedOption === 'home' && <UserSpendingData />}
+        {selectedOption === 'transactions' && <Transactions />}
       </main>
     </div>
   );
