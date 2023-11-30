@@ -5,13 +5,11 @@ import { useState } from 'react';
 import { authContext } from '@/lib/store/auth-context';
 import UserSpendingData from '@/components/userSpendingData';
 import Transactions from '@/components/transactions';
+import Income from '@/components/income';
 
-
-import { IoHome } from "react-icons/io5"; // Import the IoHome icon once
-
+{/* ICONS */}
+import { IoHome } from "react-icons/io5";
 import { ImStatsDots } from "react-icons/im";
-import { IoIosLogOut } from "react-icons/io";
-import { TbPigMoney } from "react-icons/tb";
 import { FaChartLine } from "react-icons/fa6";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
@@ -38,7 +36,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
             padding: '1rem',
             marginTop: '0', 
             borderRight: '2px solid black',
-            borderRadius: '0 20px 20px 0',
+            borderRadius: '0 20px 0 0',
             width: '225px',
             position: 'fixed',
             top: '0', 
@@ -205,59 +203,38 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                 <li style={{
                     marginBottom: '1rem',
                     color: 'white',
-                    fontSize: '1.5rem',
+                    fontSize: '18px',
                     borderBottom: '2px solid white',
                 }}>
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'home' ? '#FEB737' : 'white', // Highlight the selected option
+                    color: selectedOption === 'home' ? '#FEB737' : 'white', 
                     }}
                     onClick={(e) => {
                         e.preventDefault();
-                        onSelectOption('home'); // Pass 'home' as the selected option
+                        onSelectOption('home'); 
                     }}
                     >
                     <IoHome style={{
                         marginRight: '10px'
-                    }} /> Home
+                    }} /> Spending
                     </a>
                 </li>
                 <li style={{
                     marginBottom: '1rem',
                     color: 'white',
-                    fontSize: '1.5rem',
+                    fontSize: '18px',
                     borderBottom: '2px solid white',
                 }}>
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'transactions' ? '#FEB737' : 'white', // Highlight the selected option
+                    color: selectedOption === 'income' ? '#FEB737' : 'white',
                     }}
                     onClick={(e) => {
                         e.preventDefault();
-                        onSelectOption('transactions'); // Pass 'transactions' as the selected option
-                    }}
-                    >
-                    <FaMoneyBillTransfer style={{
-                        marginRight: '10px'
-                    }} /> Transactions
-                    </a>
-                </li>
-                <li style={{
-                    marginBottom: '1rem',
-                    color: 'white',
-                    fontSize: '1.5rem',
-                    borderBottom: '2px solid white',
-                }}>
-                    <a href='/' style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: selectedOption === 'income' ? '#FEB737' : 'white', // Highlight the selected option
-                    }}
-                    onClick={(e) => {
-                        e.preventDefault();
-                        onSelectOption('income'); // Pass 'income' as the selected option
+                        onSelectOption('income');
                     }}
                     >
                     <FaMoneyBillTrendUp style={{
@@ -268,37 +245,58 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                 <li style={{
                     marginBottom: '1rem',
                     color: 'white',
-                    fontSize: '1.5rem',
+                    fontSize: '18px',
                     borderBottom: '2px solid white',
                 }}>
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'graphs' ? '#FEB737' : 'white', // Highlight the selected option
+                    color: selectedOption === 'transactions' ? '#FEB737' : 'white', 
                     }}
                     onClick={(e) => {
                         e.preventDefault();
-                        onSelectOption('graphs'); // Pass 'graphs' as the selected option
+                        onSelectOption('transactions');
                     }}
                     >
-                    <FaChartLine style={{
+                    <FaMoneyBillTransfer style={{
                         marginRight: '10px'
-                    }} /> Graphs
+                    }} /> Transactions
                     </a>
                 </li>
                 <li style={{
                     marginBottom: '1rem',
                     color: 'white',
-                    fontSize: '1.5rem',
+                    fontSize: '18px',
+                    borderBottom: '2px solid white',
                 }}>
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'advice' ? '#FEB737' : 'white', // Highlight the selected option
+                    color: selectedOption === 'graphs' ? '#FEB737' : 'white', 
                     }}
                     onClick={(e) => {
                         e.preventDefault();
-                        onSelectOption('advice'); // Pass 'advice' as the selected option
+                        onSelectOption('graphs');
+                    }}
+                    >
+                    <FaChartLine style={{
+                        marginRight: '10px'
+                    }} /> Charts
+                    </a>
+                </li>
+                <li style={{
+                    marginBottom: '1rem',
+                    color: 'white',
+                    fontSize: '18px',
+                }}>
+                    <a href='/' style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: selectedOption === 'advice' ? '#FEB737' : 'white', 
+                    }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onSelectOption('advice'); 
                     }}
                     >
                     <MdOutlineContactSupport style={{
