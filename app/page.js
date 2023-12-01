@@ -5,9 +5,11 @@ import React, { useContext, useState } from 'react';
 import SignUp from '@/components/signup';
 import { authContext } from '@/lib/store/auth-context';
 import NavBar from '@/components/Nav';
-import UserSpendingData from '@/components/userSpendingData';
-import Income from '@/components/income';
-import Transactions from '@/components/transactions';
+import UserSpendingData from '@/app/pages/userSpendingData';
+import Income from '@/app/pages/income';
+import Transactions from '@/app/pages/transactions';
+import AIAssistant from '@/app/pages/assistant';
+import Budget from '@/app/pages/budget';
 
 export default function Home() {
   const { user } = useContext(authContext);
@@ -74,12 +76,17 @@ export default function Home() {
           </h1>
         </div>
         {selectedOption === 'home' && (
-          <UserSpendingData onAddSpending={addSpendingItem} />
+          <Budget
+          />
+        )}
+        {selectedOption === 'spending' && (
+          <UserSpendingData />
         )}
         {selectedOption === 'transactions' && (
           <Transactions spendingItems={spendingItems} incomeItems={incomeItems} />
         )}
         {selectedOption === 'income' && <Income onAddIncome={addIncomeItem} />}
+        {selectedOption === 'advice' && <AIAssistant />}
       </main>
     </div>
   );

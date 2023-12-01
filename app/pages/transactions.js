@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Item from '@/components/item';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import Budget from '@/app/pages/budget';
+
 
 function Transactions({ spendingItems = [], incomeItems = [] }) {
   const [showSpendingDetails, setShowSpendingDetails] = useState(false);
@@ -43,6 +45,7 @@ function Transactions({ spendingItems = [], incomeItems = [] }) {
       setExpandedCategories([...expandedCategories, category]);
     }
   };
+  
 
   return (
     <div style={{ marginLeft: '40px', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 100px)', overflowY: 'auto' }}>

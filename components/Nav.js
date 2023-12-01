@@ -3,9 +3,6 @@
 import { useContext} from 'react';
 import { useState } from 'react';
 import { authContext } from '@/lib/store/auth-context';
-import UserSpendingData from '@/components/userSpendingData';
-import Transactions from '@/components/transactions';
-import Income from '@/components/income';
 
 {/* ICONS */}
 import { IoHome } from "react-icons/io5";
@@ -14,6 +11,7 @@ import { FaChartLine } from "react-icons/fa6";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { GiTakeMyMoney } from "react-icons/gi";
 
 function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}){
     const { user, loading, logout } = useContext(authContext);
@@ -218,6 +216,27 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     >
                     <IoHome style={{
                         marginRight: '10px'
+                    }} /> Home
+                    </a>
+                </li>
+                <li style={{
+                    marginBottom: '1rem',
+                    color: 'white',
+                    fontSize: '18px',
+                    borderBottom: '2px solid white',
+                }}>
+                    <a href='/' style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: selectedOption === 'spending' ? '#FEB737' : 'white', 
+                    }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onSelectOption('spending'); 
+                    }}
+                    >
+                    <FaMoneyBillTransfer style={{
+                        marginRight: '10px'
                     }} /> Spending
                     </a>
                 </li>
@@ -258,7 +277,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                         onSelectOption('transactions');
                     }}
                     >
-                    <FaMoneyBillTransfer style={{
+                    <GiTakeMyMoney style={{
                         marginRight: '10px'
                     }} /> Transactions
                     </a>
