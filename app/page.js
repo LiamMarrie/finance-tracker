@@ -80,7 +80,7 @@ export default function Home() {
           />
         )}
         {selectedOption === 'spending' && (
-          <UserSpendingData />
+          <UserSpendingData onAddSpending={addSpendingItem} />
         )}
         {selectedOption === 'transactions' && (
           <Transactions spendingItems={spendingItems} incomeItems={incomeItems} />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function UserSpendingData({ onAddSpending, onAddIncome }) {
+export default function UserSpendingData({ onAddSpending }) {
     const [name, setName] = useState('');
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
