@@ -291,11 +291,11 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'graphs' ? '#FEB737' : 'white', 
+                    color: selectedOption === 'chart' ? '#FEB737' : 'white', 
                     }}
                     onClick={(e) => {
                         e.preventDefault();
-                        onSelectOption('graphs');
+                        onSelectOption('chart');
                     }}
                     >
                     <FaChartLine style={{
