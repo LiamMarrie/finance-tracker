@@ -29,6 +29,14 @@ export default function Home() {
     setIncomeItems([...incomeItems, item]);
   };
 
+  const handleItemsUpdate = (updatedItems, type) => {
+    if (type === 'spending') {
+      setSpendingItems(updatedItems);
+    } else if (type === 'income') {
+      setIncomeItems(updatedItems);
+    }
+  };
+
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return 'Good morning';
@@ -76,14 +84,17 @@ export default function Home() {
           </h1>
         </div>
         {selectedOption === 'home' && (
-          <Budget
-          />
+          <Budget />
         )}
         {selectedOption === 'spending' && (
           <UserSpendingData onAddSpending={addSpendingItem} />
         )}
         {selectedOption === 'transactions' && (
-          <Transactions spendingItems={spendingItems} incomeItems={incomeItems} />
+          <Transactions 
+            spendingItems={spendingItems} 
+            incomeItems={incomeItems} 
+            onItemsUpdate={handleItemsUpdate} 
+          />
         )}
         {selectedOption === 'income' && <Income onAddIncome={addIncomeItem} />}
         {selectedOption === 'advice' && <AIAssistant />}

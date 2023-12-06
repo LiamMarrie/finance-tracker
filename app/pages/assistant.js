@@ -15,6 +15,10 @@ function AIAssistant() {
       <p>Our AI assistant offers personalized financial advice and insights</p>
       <p>Number of clicks: {count}</p>
       <button onClick={incrementCount}>Click me</button>
+      <h1 style={{
+        fontSize: '30px',
+        color: 'red'
+      }}>IGNORE THIS PLS AND THANKS</h1>
     </div>
   );
 }

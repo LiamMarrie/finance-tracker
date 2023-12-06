@@ -4,10 +4,20 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Budget from '@/app/pages/budget';
 
 
-function Transactions({ spendingItems = [], incomeItems = [] }) {
+function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
   const [showSpendingDetails, setShowSpendingDetails] = useState(false);
   const [showIncomeDetails, setShowIncomeDetails] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState([]);
+
+  const handleDeleteItem = (itemId, type) => {
+    if (type === 'spending') {
+      const updatedSpendingItems = spendingItems.filter(item => item.id !== itemId);
+      onItemsUpdate(updatedSpendingItems, 'spending');
+    } else if (type === 'income') {
+      const updatedIncomeItems = incomeItems.filter(item => item.id !== itemId);
+      onItemsUpdate(updatedIncomeItems, 'income');
+    }
+  };
 
   const toggleSpendingDetails = () => {
     setShowSpendingDetails(!showSpendingDetails);
@@ -115,14 +125,16 @@ function Transactions({ spendingItems = [], incomeItems = [] }) {
                     </div>
                     {expandedCategories.includes(category) && (
                         <ul>
-                            {groupedSpending[category].map((item, itemIndex) => (
-                                <Item
-                                    key={itemIndex}
+                            {groupedSpending[category].map((item) => (
+                                <Item 
+                                    key={item.id} 
+                                    id={item.id}
                                     name={item.name}
                                     amount={item.amount}
                                     date={item.date}
                                     type="spending"
                                     category={item.category}
+                                    onDelete={() => handleDeleteItem(item.id, 'spending')}
                                 />
                             ))}
                         </ul>
@@ -198,14 +210,16 @@ function Transactions({ spendingItems = [], incomeItems = [] }) {
                         </div>
                         {expandedCategories.includes(category) && (
                             <ul>
-                                {groupedIncome[category].map((item, itemIndex) => (
+                                {groupedIncome[category].map((item) => (
                                     <Item
-                                        key={itemIndex}
+                                        key={item.id} 
+                                        id={item.id}
                                         name={item.name}
                                         amount={item.amount}
                                         date={item.date}
                                         type="income"
-                                        source={item.source}
+                                        category={item.category}
+                                        onDelete={() => handleDeleteItem(item.id, 'income')}
                                     />
                                 ))}
                             </ul>

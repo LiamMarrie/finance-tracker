@@ -1,7 +1,16 @@
 import React from 'react';
+import { MdDelete } from "react-icons/md";
 
-function Item({ name, amount, date, type }) {
+function Item({ id, name, amount, date, type, onDelete }) {
   const amountLabel = type === 'income' ? 'Amount' : 'Price';
+
+  const handleDelete = () =>{
+    try{
+      onDelete(id);
+    } catch(error){
+      console.log(`Error in deleting item: ${error}`);
+    }
+  }
 
   return (
     <li
@@ -59,6 +68,9 @@ function Item({ name, amount, date, type }) {
         }}
       >
       </div>
+      <button onClick={handleDelete} style={{
+        backgroundColor: 'red'
+      }}><MdDelete /></button>
     </li>
   );
 }
