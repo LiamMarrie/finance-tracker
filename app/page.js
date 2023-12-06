@@ -21,13 +21,16 @@ export default function Home() {
     return <SignUp />;
   }
 
-  const addSpendingItem = (item) => {
-    setSpendingItems([...spendingItems, item]);
+  const addSpendingItem = (newItem) => {
+    const itemWithId = { ...newItem, id: Date.now() };
+    setSpendingItems([...spendingItems, itemWithId]);
   };
-
-  const addIncomeItem = (item) => {
-    setIncomeItems([...incomeItems, item]);
+  
+  const addIncomeItem = (newItem) => {
+    const itemWithId = { ...newItem, id: Date.now() };
+    setIncomeItems([...incomeItems, itemWithId]);
   };
+  
 
   const handleItemsUpdate = (updatedItems, type) => {
     if (type === 'spending') {
