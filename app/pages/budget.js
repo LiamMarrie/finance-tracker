@@ -94,7 +94,7 @@ function Budget({ transactions, onAddSpending }) {
   ));
 
   return (
-    <div style={{ marginLeft: '40px', color: 'white',overflowY: 'auto', minHeight: '100vh', maxHeight: '100vh'
+    <div style={{ marginLeft: '40px', color: 'white',height: 'calc(100vh - 100px)', overflowY: 'auto'
     }}>
       <h2>Budget Page</h2>
       <div>
