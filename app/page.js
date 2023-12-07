@@ -1,7 +1,7 @@
 'use client';
 'use strict';
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import SignUp from '@/components/signup';
 import { authContext } from '@/lib/store/auth-context';
 import NavBar from '@/components/Nav';
@@ -10,6 +10,7 @@ import Income from '@/app/pages/income';
 import Transactions from '@/app/pages/transactions';
 import AIAssistant from '@/app/pages/assistant';
 import Budget from '@/app/pages/budget';
+
 
 export default function Home() {
   const { user } = useContext(authContext);
@@ -87,7 +88,7 @@ export default function Home() {
           </h1>
         </div>
         {selectedOption === 'home' && (
-          <Budget />
+          <Budget transactions={spendingItems} onAddSpending={addSpendingItem} />
         )}
         {selectedOption === 'spending' && (
           <UserSpendingData onAddSpending={addSpendingItem} />

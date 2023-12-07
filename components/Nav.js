@@ -13,7 +13,7 @@ import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
 
-function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}){
+function NavBar({ isVisible, selectedOption, onSelectOption}){
     const { user, loading, logout } = useContext(authContext);
     const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -34,7 +34,6 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
             padding: '1rem',
             marginTop: '0', 
             borderRight: '2px solid black',
-            borderRadius: '0 20px 0 0',
             width: '225px',
             position: 'fixed',
             top: '0', 
@@ -128,7 +127,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                         <button
                             onClick={logout}
                             style={{
-                                backgroundColor: '#EE5454',
+                                backgroundColor: '#BBAAB8',
                                 border: '2px solid black',
                                 width: '100%',
                                 display: 'flex',
@@ -142,51 +141,19 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                             }} 
 
                             onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = '#f22323';
+                            e.target.style.backgroundColor = '#292643';
                             e.target.style.boxShadow= '8px 8px 0 0 black',
                             e.target.style.transform = 'scale(1.05)';
                             }}
 
                             onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = '#EE5454'; 
+                            e.target.style.backgroundColor = '#BBAAB8'; 
                             e.target.style.boxShadow= 'none',
                             e.target.style.transform = 'scale(1)'; 
                             }}
                         >
                             Logout
                         </button>
-                        <p style={{
-                            color: 'white',
-                            fontSize: '16px',
-                            fontWeight: 'semibold',
-                            margin: '1rem 0',
-                        
-                        }}>- or -</p>
-                        <ImStatsDots
-                            style={{
-                                backgroundColor: '#13e16c',
-                                border: '2px solid black',
-                                borderRadius: '10px',
-                                color: 'white',
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: '0.5rem',
-                            }}
-
-                            onMouseEnter={(e) => {
-                                e.target.style.backgroundColor = '#26D782';
-                                e.target.style.boxShadow= '8px 8px 0 0 black',
-                                e.target.style.transform = 'scale(1.05)';
-                            }}
-    
-                            onMouseLeave={(e) => {
-                                e.target.style.backgroundColor = '#13e16c'; 
-                                e.target.style.boxShadow= 'none',
-                                e.target.style.transform = 'scale(1)'; 
-                            }}
-                        />
                     </nav>
                 </div>
             )}
@@ -207,7 +174,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'home' ? '#FEB737' : 'white', 
+                    color: selectedOption === 'home' ? '#00a08f' : 'white', 
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -215,7 +182,8 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     }}
                     >
                     <IoHome style={{
-                        marginRight: '10px'
+                        marginRight: '10px',
+                        color: '#00a08f',
                     }} /> Home
                     </a>
                 </li>
@@ -228,7 +196,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'spending' ? '#FEB737' : 'white', 
+                    color: selectedOption === 'spending' ? '#fee074' : 'white', 
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -236,7 +204,8 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     }}
                     >
                     <FaMoneyBillTransfer style={{
-                        marginRight: '10px'
+                        marginRight: '10px',
+                        color: '#fee074',
                     }} /> Spending
                     </a>
                 </li>
@@ -249,7 +218,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'income' ? '#FEB737' : 'white',
+                    color: selectedOption === 'income' ? '#ff9469' : 'white',
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -257,7 +226,8 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     }}
                     >
                     <FaMoneyBillTrendUp style={{
-                        marginRight: '10px'
+                        marginRight: '10px',
+                        color: '#ff9469',
                     }} /> Income
                     </a>
                 </li>
@@ -270,7 +240,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'transactions' ? '#FEB737' : 'white', 
+                    color: selectedOption === 'transactions' ? '#fe8d8f' : 'white', 
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -278,7 +248,8 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     }}
                     >
                     <GiTakeMyMoney style={{
-                        marginRight: '10px'
+                        marginRight: '10px',
+                        color: '#fe8d8f',
                     }} /> Transactions
                     </a>
                 </li>
@@ -291,7 +262,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'chart' ? '#FEB737' : 'white', 
+                    color: selectedOption === 'chart' ? '#9c538b' : 'white', 
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -299,7 +270,8 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     }}
                     >
                     <FaChartLine style={{
-                        marginRight: '10px'
+                        marginRight: '10px',
+                        color: '#9c538b',
                     }} /> Charts
                     </a>
                 </li>
@@ -311,7 +283,7 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     <a href='/' style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: selectedOption === 'advice' ? '#FEB737' : 'white', 
+                    color: selectedOption === 'advice' ? '#9c5' : 'white', 
                     }}
                     onClick={(e) => {
                         e.preventDefault();
@@ -319,7 +291,8 @@ function NavBar({ isVisible, toggleTransactions, selectedOption, onSelectOption}
                     }}
                     >
                     <MdOutlineContactSupport style={{
-                        marginRight: '10px'
+                        marginRight: '10px',
+                        color: '#9c5',
                     }} /> Advice
                     </a>
                 </li>

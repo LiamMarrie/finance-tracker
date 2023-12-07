@@ -14,18 +14,25 @@ export default function UserSpendingData({ onAddSpending }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!name || !amount || !category || !date) {
+        if (!name || !amount || category === 'default' || !date) {
             setError('Please fill out all fields.');
             return;
         }
-
-        const inputData = { name, amount, date, category };
+    
+        const inputData = { 
+            name, 
+            amount: parseFloat(amount), 
+            date, 
+            category 
+        };
+    
         onAddSpending(inputData);
-
+    
+        // Reset form fields
         setName('');
         setAmount('');
         setDate('');
-        setCategory('salary');
+        setCategory('default');
         setError('');
     };
 
@@ -253,15 +260,15 @@ export default function UserSpendingData({ onAddSpending }) {
                                     marginTop: '1rem',
                                     borderRadius: '15px',
                                     border: '2px solid black',
-                                    backgroundColor:'#54EE82',
+                                    backgroundColor:'#0f4c81',
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.target.style.backgroundColor = '#23f223';
+                                    e.target.style.backgroundColor = '#1f375f';
                                     e.target.style.boxShadow = '8px 8px 0 0 black';
                                     e.target.style.transform = 'scale(1.05)';
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.target.style.backgroundColor = '#54EE82';
+                                    e.target.style.backgroundColor = '#0f4c81';
                                     e.target.style.boxShadow = 'none';
                                     e.target.style.transform = 'scale(1)';
                                 }}
