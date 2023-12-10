@@ -2,6 +2,7 @@
 
 utils/openai.js
 .env
+auth-context.js
 # dependencies
 /node_modules
 /.pnp
