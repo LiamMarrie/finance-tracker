@@ -3,6 +3,7 @@
 utils/openai.js
 .env
 auth-context.js
+lib\firebase\index.js
 # dependencies
 /node_modules
 /.pnp
