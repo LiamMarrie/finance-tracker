@@ -8,8 +8,8 @@ utils/openai.js
 .pnp.js
 .yarn/install-state.gz
 
-# Ignore lib/firebase/index.js
-lib/firebase/index.js
+# Ignore index.js
+index.js
 
 # testing
 /coverage
