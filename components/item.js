@@ -22,8 +22,8 @@ function Item({ id, name, amount, date, type, onDelete }) {
         marginTop: '10px',
         borderRadius: '5px',
         display: 'flex',
-        justifyContent: 'space-between', // Distribute space between children
-        alignItems: 'center', // Align children vertically in the middle
+        justifyContent: 'space-between',
+        alignItems: 'center', 
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
         msUserSelect: 'none',

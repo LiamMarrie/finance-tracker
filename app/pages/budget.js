@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import BudgetItem from '@/components/BudgetItem';
 import Transactions from '@/app/pages/transactions';
+import { MdAttachMoney } from "react-icons/md";
+import TotalsItem from '@/components/totalsItems';
 
 function Budget({ transactions, onAddSpending }) {
   const spendingCategories = [
@@ -15,6 +17,10 @@ function Budget({ transactions, onAddSpending }) {
     'health',
     'other',
   ];
+
+  const deleteBudgetItem = (categoryToDelete) => {
+    setBudgetItems(prevItems => prevItems.filter(item => item.category !== categoryToDelete));
+  }
 
   const loadBudgetItems = () => {
     const storedItems = localStorage.getItem('budgetItems');
@@ -40,12 +46,11 @@ function Budget({ transactions, onAddSpending }) {
       setBudgetItems(prevItems => {
         const existingItem = prevItems.find(item => item.category === newItem.category);
         if (existingItem) {
-          // Update the existing item's amount (optional, based on your app's logic)
+          //update the existing item's amount
           return prevItems.map(item => item.category === newItem.category ? 
             { ...item, amount: item.amount + newItem.amount } : 
             item);
         } else {
-          // Add new budget item
           return [...prevItems, newItem];
         }
       });
@@ -55,24 +60,38 @@ function Budget({ transactions, onAddSpending }) {
     }
   };  
 
+  const calculateTotalIncome = () => {
+    // Adjust the filter condition to correctly identify all income transactions
+    const incomeTransactions = transactions.filter(transaction => transaction.type === 'income');
+    return incomeTransactions.reduce((total, transaction) => total + parseFloat(transaction.amount), 0);
+  };
+  
+  const calculateTotalSpending = () => {
+    const spendingTransactions = transactions.filter(transaction => transaction.type === 'spending');
+    const total = spendingTransactions.reduce((total, transaction) => total + parseFloat(transaction.amount), 0);
+    return total;
+  };
+  
+  const totalIncome = calculateTotalIncome();
+  const totalSpending = calculateTotalSpending();
+
   const addSpendingItem = (newSpending) => {
     setBudgetItems(prevItems => {
-        // Check if the category already exists
+        //check if the category already exists
         const existingItem = prevItems.find(item => item.category === newSpending.category);
         if (existingItem) {
-            // Update the existing item's amount
+            //update the existing item's amount
             return prevItems.map(item => 
                 item.category === newSpending.category ? 
                 { ...item, amount: item.amount + newSpending.amount } : 
                 item
             );
         } else {
-            // Add new category and amount
+            //add new category and amount
             return [...prevItems, { category: newSpending.category, amount: newSpending.amount }];
         }
     });
   };
-
 
   const calculateTotal = (category) => {
     const categoryTransactions = transactions.filter(transaction => transaction.category === category);
@@ -90,6 +109,7 @@ function Budget({ transactions, onAddSpending }) {
       totalSpent={calculateTotal(budgetItem.category)}
       budgetAmount={budgetItem.amount}
       timeFrame={budgetItem.timeFrame}
+      onDelete={() => deleteBudgetItem(budgetItem.category)}
     />
   ));
 
@@ -97,6 +117,19 @@ function Budget({ transactions, onAddSpending }) {
     <div style={{ marginLeft: '40px', color: 'white',height: 'calc(100vh - 100px)', overflowY: 'auto'
     }}>
       <h2>Budget Page</h2>
+      <div className='totals-container' style={{ display: 'flex', flexDirection: 'row', color: 'black' }}>
+        <TotalsItem 
+          title="Total Income" 
+          total={totalIncome} 
+          isSpending={false} 
+        />
+
+        <TotalsItem 
+          title="Total Spending" 
+          total={totalSpending} 
+          isSpending={true} 
+        />
+      </div>
       <div>
         <h3>Add New Budget Category</h3>
         <select

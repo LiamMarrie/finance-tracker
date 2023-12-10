@@ -23,15 +23,16 @@ export default function Home() {
   }
 
   const addSpendingItem = (newItem) => {
-    const itemWithId = { ...newItem, id: Date.now() };
-    setSpendingItems([...spendingItems, itemWithId]);
+    const itemWithIdAndType = { ...newItem, id: Date.now(), type: 'spending' };
+    setSpendingItems([...spendingItems, itemWithIdAndType]);
   };
   
   const addIncomeItem = (newItem) => {
-    const itemWithId = { ...newItem, id: Date.now() };
-    setIncomeItems([...incomeItems, itemWithId]);
-  };
-  
+    const itemWithIdAndType = { ...newItem, id: Date.now(), type: 'income' };
+    setIncomeItems([...incomeItems, itemWithIdAndType]);
+  };  
+
+  const combinedTransactions = [...spendingItems, ...incomeItems];
 
   const handleItemsUpdate = (updatedItems, type) => {
     if (type === 'spending') {
@@ -88,7 +89,7 @@ export default function Home() {
           </h1>
         </div>
         {selectedOption === 'home' && (
-          <Budget transactions={spendingItems} onAddSpending={addSpendingItem} />
+          <Budget transactions={combinedTransactions} onAddSpending={addSpendingItem} />
         )}
         {selectedOption === 'spending' && (
           <UserSpendingData onAddSpending={addSpendingItem} />

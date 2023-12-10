@@ -1,10 +1,10 @@
-function BudgetItem({ category, totalSpent, budgetAmount, timeFrame }) {
+function BudgetItem({ category, totalSpent, budgetAmount, timeFrame, onDelete }) {
   const spentPercentage = Math.min((totalSpent / budgetAmount) * 100, 100);
 
   return (
     <div className='outer-container' style={{
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
       justifyContent: 'left',
       alignItems: 'center',
       border: '1px solid #ddd',
@@ -42,6 +42,10 @@ function BudgetItem({ category, totalSpent, budgetAmount, timeFrame }) {
             />
           </div>
           <span>{spentPercentage.toFixed(2)}% Spent</span>
+           {/* Delete Button */}
+          <button onClick={onDelete} style={{ marginTop: '10px', backgroundColor: 'red', color: 'white' }}>
+            Delete
+          </button>
         </div>
       </div>
     </div>

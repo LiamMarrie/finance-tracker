@@ -28,7 +28,7 @@ export default function UserSpendingData({ onAddSpending }) {
     
         onAddSpending(inputData);
     
-        // Reset form fields
+        //reset form fields
         setName('');
         setAmount('');
         setDate('');
