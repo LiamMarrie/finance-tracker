@@ -10,7 +10,7 @@ import Income from '@/app/pages/income';
 import Transactions from '@/app/pages/transactions';
 import AIAssistant from '@/app/pages/assistant';
 import Budget from '@/app/pages/budget';
-
+import BudgetCharts from '@/app/pages/Charts';
 
 export default function Home() {
   const { user } = useContext(authContext);
@@ -33,6 +33,20 @@ export default function Home() {
   };  
 
   const combinedTransactions = [...spendingItems, ...incomeItems];
+
+  const categorySpending = spendingItems.reduce((acc, item) => {
+    acc[item.category] = (acc[item.category] || 0) + item.amount;
+    return acc;
+  }, {});
+
+  const categoryIncome = incomeItems.reduce((acc, item) => {
+    const { category, amount } = item;
+    acc[category] = (acc[category] || 0) + amount;
+    return acc;
+  }, {});
+
+  const spendingData = Object.keys(categorySpending).map(category => ({ category, amount: categorySpending[category] }));
+  const incomeData = Object.keys(categoryIncome).map(category => ({ category, amount: categoryIncome[category] }));
 
   const handleItemsUpdate = (updatedItems, type) => {
     if (type === 'spending') {
@@ -102,6 +116,9 @@ export default function Home() {
           />
         )}
         {selectedOption === 'income' && <Income onAddIncome={addIncomeItem} />}
+        {selectedOption === 'charts' && (
+          <BudgetCharts categoryBudgets={spendingData} categoryIncomes={incomeData} />
+        )}
         {selectedOption === 'advice' && <AIAssistant />}
       </main>
     </div>

@@ -266,7 +266,7 @@ function NavBar({ isVisible, selectedOption, onSelectOption}){
                     }}
                     onClick={(e) => {
                         e.preventDefault();
-                        onSelectOption('chart');
+                        onSelectOption('charts');
                     }}
                     >
                     <FaChartLine style={{
