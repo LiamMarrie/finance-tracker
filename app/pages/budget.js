@@ -116,8 +116,7 @@ function Budget({ transactions, onAddSpending }) {
   return (
     <div style={{ marginLeft: '40px', color: 'white',height: 'calc(100vh - 100px)', overflowY: 'auto'
     }}>
-      <h2>Budget Page</h2>
-      <div className='totals-container' style={{ display: 'flex', flexDirection: 'row', color: 'black' }}>
+      <div className='totals-container' style={{ display: 'flex', flexDirection: 'row', color: 'black', }}>
         <TotalsItem 
           title="Total Income" 
           total={totalIncome} 
@@ -130,33 +129,39 @@ function Budget({ transactions, onAddSpending }) {
           isSpending={true} 
         />
       </div>
-      <div>
-        <h3>Add New Budget Category</h3>
-        <select
-          value={newCategory}
-          onChange={(e) => setNewCategory(e.target.value)}
-          style={{ color: 'black' }}
-        >
-          <option value="default" style={{ color: 'grey' }}>
-            - Select -
-          </option>
-          {spendingCategories.map((category) => (
-            <option key={category} value={category}>
-              {category}
+      <div style={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', width: '35%' }}>
+        <h3 style={{ color: '#333', marginBottom: '15px' }}>Add New Budget Category</h3>
+        
+        <div style={{ marginBottom: '15px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Category:</label>
+          <select
+            value={newCategory}
+            onChange={(e) => setNewCategory(e.target.value)}
+            style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ddd', color: 'black' }}
+          >
+            <option value="default" style={{ color: 'grey' }}>
+              - Select -
             </option>
-          ))}
-        </select>
-        <div style={{ position: 'relative' }}>
+            {spendingCategories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div style={{ marginBottom: '15px', position: 'relative' }}>
+          <label style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Amount:</label>
           <span
             className="dollar-sign"
             style={{
               position: 'absolute',
-              top: '50%',
+              top: '70%',
               left: '8px',
               transform: 'translateY(-50%)',
               fontSize: '14px',
               pointerEvents: 'none',
-              color: 'black',
+              color: 'black'
             }}
           >
             $
@@ -166,15 +171,16 @@ function Budget({ transactions, onAddSpending }) {
             placeholder="Amount"
             value={newAmount}
             onChange={(e) => setNewAmount(e.target.value)}
-            style={{ paddingLeft: '20px', color: 'black' }}
+            style={{ width: '100%', padding: '8px 8px 8px 25px', borderRadius: '4px', border: '1px solid #ddd', color: 'black' }}
           />
         </div>
-        <div>
-          <label>Select Time Frame: </label>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Time Frame:</label>
           <select 
             value={timeFrame} 
             onChange={(e) => setTimeFrame(e.target.value)} 
-            style={{ color: 'black' }}
+            style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ddd', color: 'black' }}
           >
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
@@ -182,10 +188,17 @@ function Budget({ transactions, onAddSpending }) {
             <option value="yearly">Yearly</option>
           </select>
         </div>
-        <button onClick={addBudgetItem}>Add</button>
+
+        <button 
+          onClick={addBudgetItem}
+          style={{ padding: '10px 15px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+        >
+          Add
+        </button>
       </div>
-      <div>
-        <h3>Budget Categories</h3>
+
+      <div style={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', marginTop: '20px', width: '35%', color: '#333' }}>
+        <h3 style={{ color: '#333', marginBottom: '15px' }}>Budget Categories</h3>
         {budgetItemsList}
       </div>
     </div>
