@@ -8,14 +8,52 @@ function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
   const [showSpendingDetails, setShowSpendingDetails] = useState(false);
   const [showIncomeDetails, setShowIncomeDetails] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState([]);
+  const [selectedSort, setSelectedSort] = useState([]);
+
+  const sortItems = (items, sortType) => {
+    switch (sortType){
+      case 'highest':
+        return items.sort((a, b) => b.amount - a.amount);
+      case 'lowest':
+        return items.sort((a, b) => a.amount - b.amount);
+      case 'earliest':
+        return items.sort((a, b) => new Date(a.date) - new Date(b.date));
+      case 'latest':
+        return items.sort((a, b) => new Date(b.date) - new Date(a.date));
+      default:
+        return items;
+    }
+  }
 
   const handleDeleteItem = (itemId, type) => {
+    let itemDeleted = false;
+    let itemType = '';
+
     if (type === 'spending') {
-      const updatedSpendingItems = spendingItems.filter(item => item.id !== itemId);
+      const updatedSpendingItems = spendingItems.filter(item => {
+        if (item.id === itemId) {
+          itemDeleted = true;
+          itemType = 'spending';
+        }
+        return item.id !== itemId;
+      });
       onItemsUpdate(updatedSpendingItems, 'spending');
     } else if (type === 'income') {
-      const updatedIncomeItems = incomeItems.filter(item => item.id !== itemId);
+      const updatedIncomeItems = incomeItems.filter(item => {
+        if (item.id === itemId) {
+          itemDeleted = true;
+          itemType = 'income';
+        }
+        return item.id !== itemId;
+      });
       onItemsUpdate(updatedIncomeItems, 'income');
+    }
+
+    //alert user that item has been deleted
+    if (itemDeleted) {
+      alert(`The ${itemType} item has been successfully deleted.`);
+    } else {
+      alert(`Item not found or already deleted.`);
     }
   };
 
@@ -59,6 +97,9 @@ function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
 
   return (
     <div style={{ marginLeft: '40px', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 100px)', overflowY: 'auto' }}>
+      <h3 style={{color: 'white', maxWidth: '750px', marginBottom: '20px', fontSize: '17px'}}>
+        You can access your entire spending and income history on the <strong>transaction page</strong>. We have categorized your spending and income data to make it easier for you to track your finances effortlessly!
+      </h3>
       {/* Spending Container */}
       <div
         className="spending-container"
@@ -74,25 +115,57 @@ function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
         }}
         onClick={toggleSpendingDetails}
       >
-        <h2
-          style={{
-            fontSize: '20px',
-            fontWeight: 'bold',
-            color: 'white',
-          }}
-        >
-          Spending: ${totalSpending.toFixed(2)}
-          <span
+        <div className='spending-header' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <h2
             style={{
-              float: 'right',
-              fontSize: '15px',
-              marginTop: '8px',
-              marginRight: '5px',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              color: 'white',
+              margin: 0,
+              display: 'flex',
+              alignItems: 'center',
             }}
           >
-            {showSpendingDetails ? <FaChevronUp /> : <FaChevronDown />}
-          </span>
-        </h2>
+            Spending: ${totalSpending.toFixed(2)}
+          </h2>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <select 
+              value={selectedSort} 
+              onChange={(e) => {
+                e.stopPropagation();
+                setSelectedSort(e.target.value);
+              }}
+              onClick={(e) => e.stopPropagation()}
+              style={{ 
+                color: 'black', 
+                fontSize:'15px', 
+                fontWeight: 'normal', 
+                marginRight: '10px', 
+                marginTop: '10px',
+                borderRadius: '5px',
+                textAlign: 'center',
+                border: '2px solid black'
+            }}
+            >
+              <option value="">Select Filter</option>
+              <option value="highest">Highest Spending</option>
+              <option value="lowest">Lowest Spending</option>
+              <option value="earliest">Earliest Spending</option>
+              <option value="latest">Latest Spending</option>
+            </select>
+            <span
+              style={{
+                float: 'right',
+                fontSize: '15px',
+                marginTop: '8px',
+                marginRight: '5px',
+                color: 'white'
+              }}
+            >
+              {showSpendingDetails ? <FaChevronUp /> : <FaChevronDown />}
+            </span>
+          </div>
+        </div>
         <div
           className="inner-container"
           style={{
@@ -125,7 +198,7 @@ function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
                     </div>
                     {expandedCategories.includes(category) && (
                         <ul>
-                            {groupedSpending[category].map((item) => (
+                            {sortItems(groupedSpending[category], selectedSort).map((item) => (
                                 <Item 
                                     key={item.id} 
                                     id={item.id}
@@ -144,7 +217,6 @@ function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
           </div>
         </div>
       </div>
-
       {/* Income Container */}
       <div
         className="income-container"
@@ -160,25 +232,62 @@ function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
         }}
         onClick={toggleIncomeDetails}
       >
-        <h2
-          style={{
-            fontSize: '20px',
-            fontWeight: 'bold',
-            color: 'white',
-          }}
+        <div className='income-header' style={{
+          display: 'flex',
+          alignItems: 'center', 
+          justifyContent: 'space-between' 
+        }}
         >
-          Income: ${totalIncome.toFixed(2)}
-          <span
+          <h2
             style={{
-              float: 'right',
-              fontSize: '15px',
-              marginTop: '8px',
-              marginRight: '5px',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              color: 'white',
+              margin: 0,
+              display: 'flex',
+              alignItems: 'center',
             }}
           >
-            {showIncomeDetails ? <FaChevronUp /> : <FaChevronDown />}
-          </span>
-        </h2>
+            Income: ${totalIncome.toFixed(2)}
+          </h2>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <select 
+              value={selectedSort} 
+              onChange={(e) => {
+                e.stopPropagation();
+                setSelectedSort(e.target.value);
+              }}
+              onClick={(e) => e.stopPropagation()}
+              style={{ 
+                color: 'black', 
+                fontSize:'15px', 
+                fontWeight: 'normal', 
+                marginRight: '10px', 
+                marginTop: '10px',
+                borderRadius: '5px',
+                textAlign: 'center',
+                border: '2px solid black'
+            }}
+            >
+              <option value="">Select Filter</option>
+              <option value="highest">Highest Spending</option>
+              <option value="lowest">Lowest Spending</option>
+              <option value="earliest">Earliest Spending</option>
+              <option value="latest">Latest Spending</option>
+            </select>
+            <span
+              style={{
+                float: 'right',
+                fontSize: '15px',
+                marginTop: '8px',
+                marginRight: '5px',
+                color: 'white'
+              }}
+            >
+              {showIncomeDetails ? <FaChevronUp /> : <FaChevronDown />}
+            </span>
+          </div>
+        </div>
         <div
           className="inner-container"
           style={{
@@ -209,8 +318,8 @@ function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
                             </h3>
                         </div>
                         {expandedCategories.includes(category) && (
-                            <ul>
-                                {groupedIncome[category].map((item) => (
+                            <ul> 
+                                {sortItems(groupedIncome[category], selectedSort).map((item) => (
                                     <Item
                                         key={item.id} 
                                         id={item.id}

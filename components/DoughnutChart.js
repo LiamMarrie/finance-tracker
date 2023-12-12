@@ -16,6 +16,7 @@ function DoughnutChart({ chartData, title }) {
         }],
     };
 
+
     const options = {
         plugins: {
             tooltip: {
@@ -43,6 +44,8 @@ function DoughnutChart({ chartData, title }) {
             margin: '40px',
             width: '400px',
             height: '400px',
+            justifyContent: 'center',
+            marginLeft: '100px',
         }}>
             <h2>{title}</h2>
             <Doughnut data={data} options={options} />

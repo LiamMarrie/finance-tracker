@@ -99,7 +99,7 @@ export default function Home() {
               marginTop: '25px',
             }}
           >
-            {getGreeting()}, {user?.displayName}
+            {getGreeting()}, {user?.displayName}!
           </h1>
         </div>
         {selectedOption === 'home' && (
@@ -116,7 +116,7 @@ export default function Home() {
           />
         )}
         {selectedOption === 'income' && <Income onAddIncome={addIncomeItem} />}
-        {selectedOption === 'charts' && (
+        {selectedOption === 'chart' && (
           <BudgetCharts categoryBudgets={spendingData} categoryIncomes={incomeData} />
         )}
         {selectedOption === 'advice' && <AIAssistant />}

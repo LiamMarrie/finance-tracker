@@ -22,8 +22,8 @@ function BudgetItem({ category, totalSpent, budgetAmount, timeFrame, onDelete })
               <div style={{ marginBottom: '10px' }}>
                   <span>Budget Amount: ${budgetAmount.toFixed(2)}</span>
               </div>
-              <div style={{ marginBottom: '10px' }}>
-                  <span>Total Spent: ${totalSpent.toFixed(2)}</span>
+              <div style={{ marginBottom: '10px', display:'flex', justifyContent: 'space-between', marginRight: '5px' }}>
+                  <span>Total Spent: ${totalSpent.toFixed(2)}</span><span>{spentPercentage.toFixed(2)}% Spent</span>
               </div>
               <div style={{ width: '100%', marginBottom: '10px' }}>
                   <div style={{ border: '1px solid #ddd', borderRadius: '4px', marginBottom: '5px' }}>
@@ -36,7 +36,6 @@ function BudgetItem({ category, totalSpent, budgetAmount, timeFrame, onDelete })
                           }}
                       />
                   </div>
-                  <span>{spentPercentage.toFixed(2)}% Spent</span>
               </div>
               {/* Delete Button */}
               <button onClick={onDelete} style={{ backgroundColor: '#ff2e4c', color: 'white', border: 'none', borderRadius: '4px', padding: '5px 10px', cursor: 'pointer', alignSelf: 'center' }}>

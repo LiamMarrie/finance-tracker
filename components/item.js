@@ -4,50 +4,55 @@ import { MdDelete } from "react-icons/md";
 function Item({ id, name, amount, date, type, onDelete }) {
   const amountLabel = type === 'income' ? 'Amount' : 'Price';
 
-  const handleDelete = () =>{
-    try{
+  const handleDelete = () => {
+    try {
       onDelete(id);
-    } catch(error){
+    } catch (error) {
       console.log(`Error in deleting item: ${error}`);
     }
   }
 
   return (
     <li
-      className="container"
       style={{
-        border: '2px solid black',
-        backgroundColor: '#e2eaeb',
-        padding: '10px',
-        marginTop: '10px',
-        borderRadius: '5px',
+        border: 'none',
+        backgroundColor: '#f3f4f6',
+        padding: '15px',
+        marginTop: '15px',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', 
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center', 
-        MozUserSelect: 'none',
-        WebkitUserSelect: 'none',
-        msUserSelect: 'none',
-        width: '50%',
+        alignItems: 'center',
+        width: '100%',
         cursor: 'pointer',
+        transition: 'transform 0.3s ease',
       }}
     >
       <div>
-        <div className="title" style={{ color: 'black', fontSize: '20px', fontWeight: 'bold', marginBottom: '5px' }}>
+        <div style={{ color: '#333', fontSize: '20px', fontWeight: 'bold', marginBottom: '5px' }}>
           {name}
         </div>
-        <div className="description" style={{ color: 'black', fontSize: '15px' }}>
+        <div style={{ color: '#333', fontSize: '15px' }}>
           {amountLabel}: ${amount}
         </div>
-        <div className="description" style={{ color: 'black', fontSize: '15px' }}>
+        <div style={{ color: '#333', fontSize: '15px' }}>
           Date: {date}
         </div>
       </div>
       
-      <button onClick={handleDelete} style={{ backgroundColor: 'red', border: 'none', padding: '5px 10px', borderRadius: '5px' }}>
-        <MdDelete style={{
-          color: 'white',
-          fontSize: '20px'
-        }}/>
+      <button
+        onClick={handleDelete}
+        style={{
+          backgroundColor: '#e63946', 
+          border: 'none',
+          padding: '5px 10px',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          transition: 'background-color 0.3s ease',
+        }}
+      >
+        <MdDelete style={{ color: 'white', fontSize: '20px' }}/>
       </button>
     </li>
   );

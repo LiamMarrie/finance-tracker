@@ -6,7 +6,6 @@ import { authContext } from '@/lib/store/auth-context';
 
 {/* ICONS */}
 import { IoHome } from "react-icons/io5";
-import { ImStatsDots } from "react-icons/im";
 import { FaChartLine } from "react-icons/fa6";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
@@ -127,7 +126,7 @@ function NavBar({ isVisible, selectedOption, onSelectOption}){
                         <button
                             onClick={logout}
                             style={{
-                                backgroundColor: '#BBAAB8',
+                                backgroundColor: '#0f4c81',
                                 border: '2px solid black',
                                 width: '100%',
                                 display: 'flex',
@@ -141,13 +140,13 @@ function NavBar({ isVisible, selectedOption, onSelectOption}){
                             }} 
 
                             onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = '#292643';
+                            e.target.style.backgroundColor = '#1f375f';
                             e.target.style.boxShadow= '8px 8px 0 0 black',
                             e.target.style.transform = 'scale(1.05)';
                             }}
 
                             onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = '#BBAAB8'; 
+                            e.target.style.backgroundColor = '#0f4c81'; 
                             e.target.style.boxShadow= 'none',
                             e.target.style.transform = 'scale(1)'; 
                             }}
@@ -266,7 +265,7 @@ function NavBar({ isVisible, selectedOption, onSelectOption}){
                     }}
                     onClick={(e) => {
                         e.preventDefault();
-                        onSelectOption('charts');
+                        onSelectOption('chart');
                     }}
                     >
                     <FaChartLine style={{

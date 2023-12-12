@@ -6,7 +6,14 @@ function BudgetCharts({ categoryBudgets, categoryIncomes }) {
     console.log('Income Data:', categoryIncomes); // Debugging log
 
     if ((!categoryBudgets || categoryBudgets.length === 0))  {
-        return <p>No data available</p>;
+        return (
+            <div>
+                <h3 style={{color: 'white', maxWidth: '750px', fontSize: '17px', marginLeft: '40px', marginBottom: '10px'}}>
+                    Our <strong>charts page</strong> allows you to easily view your income and spending data. The information is presented in easily digestible charts that break down your finances into each category, showing the total amount in each category.
+                </h3>
+                <p style={{color: 'white', marginLeft: '40px', fontSize: '20px'}}>No data available.</p>;
+            </div>
+        )
     }
 
     const spendingLabels = categoryBudgets?.map(item => item.category) || [];
@@ -18,29 +25,34 @@ function BudgetCharts({ categoryBudgets, categoryIncomes }) {
     const colors = ['#FF5733', '#33FF57', '#3366FF', '#FF33E0', '#E0FF33'];
 
     return (
-        <div style={{ display: 'flex', padding: '20px' }}>
-            {categoryBudgets && (
-                <DoughnutChart
-                    chartData={{
-                        labels: spendingLabels,
-                        data: spendingData,
-                        backgroundColor: colors,
-                        borderColor: colors,
-                    }}
-                    title="Spending"
-                />
-            )}
-            {categoryIncomes && (
-                <DoughnutChart
-                    chartData={{
-                        labels: incomeLabels,
-                        data: incomeData,
-                        backgroundColor: colors,
-                        borderColor: colors,
-                    }}
-                    title="Income"
-                />
-            )}
+        <div>
+            <h3 style={{color: 'white', maxWidth: '750px', fontSize: '17px', marginLeft: '40px'}}>
+                Our <strong>charts page</strong> allows you to easily view your income and spending data. The information is presented in easily digestible charts that break down your finances into each category, showing the total amount in each category.
+            </h3>
+            <div style={{ display: 'flex', padding: '20px', color: 'white', fontSize: '20px', alignItems: 'center', fontWeight: 'bold'}}>
+                {categoryBudgets && (
+                    <DoughnutChart style={{}}
+                        chartData={{
+                            labels: spendingLabels,
+                            data: spendingData,
+                            backgroundColor: colors,
+                            borderColor: colors,
+                        }}
+                        title="Spending"
+                    />
+                )}
+                {categoryIncomes && (
+                    <DoughnutChart
+                        chartData={{
+                            labels: incomeLabels,
+                            data: incomeData,
+                            backgroundColor: colors,
+                            borderColor: colors,
+                        }}
+                        title="Income" 
+                    />
+                )}
+            </div>
         </div>
     );
 }

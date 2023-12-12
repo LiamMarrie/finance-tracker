@@ -19,8 +19,16 @@ function Budget({ transactions, onAddSpending }) {
   ];
 
   const deleteBudgetItem = (categoryToDelete) => {
-    setBudgetItems(prevItems => prevItems.filter(item => item.category !== categoryToDelete));
-  }
+    setBudgetItems(prevItems => {
+      const filteredItems = prevItems.filter(item => item.category !== categoryToDelete);
+
+      if (filteredItems.length < prevItems.length) {
+        alert(`Budget item for '${categoryToDelete}' has been successfully deleted.`);
+      }
+  
+      return filteredItems;
+    });
+  };  
 
   const loadBudgetItems = () => {
     const storedItems = localStorage.getItem('budgetItems');
@@ -54,14 +62,22 @@ function Budget({ transactions, onAddSpending }) {
           return [...prevItems, newItem];
         }
       });
+  
+      //alert user
+      alert(`Budget item for '${newItem.category}' added successfully with an amount of $${newItem.amount} for ${newItem.timeFrame}.`);
+  
+      //reset the form fields
       setNewCategory('');
       setNewAmount('');
       setTimeFrame('daily');
+    } else {
+      //alert the user to fill all fields
+      alert('Please fill in both category and amount fields.');
     }
-  };  
+  };
 
   const calculateTotalIncome = () => {
-    // Adjust the filter condition to correctly identify all income transactions
+    //adjust the filter condition to correctly identify all income transactions
     const incomeTransactions = transactions.filter(transaction => transaction.type === 'income');
     return incomeTransactions.reduce((total, transaction) => total + parseFloat(transaction.amount), 0);
   };
@@ -95,14 +111,22 @@ function Budget({ transactions, onAddSpending }) {
 
   const calculateTotal = (category) => {
     const categoryTransactions = transactions.filter(transaction => transaction.category === category);
-    return categoryTransactions.reduce((total, transaction) => total + transaction.amount, 0);
-  };
+    const total = categoryTransactions.reduce((total, transaction) => total + transaction.amount, 0);
+  
+    const budgetItem = budgetItems.find(item => item.category === category);
+    if (budgetItem && total >= budgetItem.amount) {
+      alert(`You have reached your budget limit for ${category}.`);
+    }
+  
+    return total;
+  };  
 
   const displayedBudgetItems = budgetItems.filter((budgetItem) =>
     spendingCategories.includes(budgetItem.category)
   );
   
   const budgetItemsList = displayedBudgetItems.map((budgetItem, index) => (
+
     <BudgetItem
       key={index}
       category={budgetItem.category}
@@ -116,6 +140,9 @@ function Budget({ transactions, onAddSpending }) {
   return (
     <div style={{ marginLeft: '40px', color: 'white',height: 'calc(100vh - 100px)', overflowY: 'auto'
     }}>
+      <h3 style={{color: 'white', maxWidth: '750px', marginBottom: '20px', fontSize: '17px'}}>
+        On the <strong>homepage</strong>, you can view your total spending and income, as well as create a budget for any spending category and track your progress towards that budget.
+      </h3>
       <div className='totals-container' style={{ display: 'flex', flexDirection: 'row', color: 'black', }}>
         <TotalsItem 
           title="Total Income" 
@@ -146,7 +173,7 @@ function Budget({ transactions, onAddSpending }) {
               <option key={category} value={category}>
                 {category}
               </option>
-            ))}
+            ))};
           </select>
         </div>
 
