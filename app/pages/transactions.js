@@ -148,10 +148,10 @@ function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
             }}
             >
               <option value="">Select Filter</option>
-              <option value="highest">Highest Spending</option>
-              <option value="lowest">Lowest Spending</option>
-              <option value="earliest">Earliest Spending</option>
-              <option value="latest">Latest Spending</option>
+              <option value="highest">Highest</option>
+              <option value="lowest">Lowest</option>
+              <option value="earliest">Earliest</option>
+              <option value="latest">Latest</option>
             </select>
             <span
               style={{
@@ -270,10 +270,10 @@ function Transactions({ spendingItems = [], incomeItems = [], onItemsUpdate }) {
             }}
             >
               <option value="">Select Filter</option>
-              <option value="highest">Highest Spending</option>
-              <option value="lowest">Lowest Spending</option>
-              <option value="earliest">Earliest Spending</option>
-              <option value="latest">Latest Spending</option>
+              <option value="highest">Highest</option>
+              <option value="lowest">Lowest</option>
+              <option value="earliest">Earliest</option>
+              <option value="latest">Latest</option>
             </select>
             <span
               style={{
